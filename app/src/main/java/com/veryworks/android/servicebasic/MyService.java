@@ -1,9 +1,7 @@
 package com.veryworks.android.servicebasic;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -46,7 +44,6 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startForeground();
-
         Log.d("MyService","========onStartCommand()");
         for(int i=0 ; i<1000 ; i++){
             total += i;
@@ -67,15 +64,7 @@ public class MyService extends Service {
                 .setContentText("노티 내용")
                 .build();
 
-        // 노티바 노출시키기
-        // 노티피케이션 매니저를 통해서 노티바를 출력
-        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(FLAG, notification);
-    }
-
-    private void stopForeground(){
-        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(FLAG);
+        startForeground(FLAG, notification);
     }
 
     @Override
@@ -86,6 +75,7 @@ public class MyService extends Service {
 
     @Override
     public void onDestroy() {
+        //stopForeground(true);
         super.onDestroy();
         Log.d("MyService","========onDestroy()");
     }

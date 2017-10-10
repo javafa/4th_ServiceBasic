@@ -52,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
         bindService(intent, con, Context.BIND_AUTO_CREATE);
     }
     public void unbind(View view){
-        if(isService)
+        if(isService){
             unbindService(con);
+        }
+
     }
 
     public void startForeground(View view){
