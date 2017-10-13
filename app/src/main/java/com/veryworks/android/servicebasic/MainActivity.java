@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     }
     // 서비스 시작
     public void start(View view){
+        intent.setAction("START");
         startService(intent);
     }
     // 서비스 종료
