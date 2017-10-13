@@ -89,7 +89,14 @@ public class MyService extends Service {
         // 클릭을 했을때 noti를 멈추는 명령어를 서비스에서 다시 받아서 처리
         Intent pauseIntent = new Intent(getBaseContext(), MyService.class);
         pauseIntent.setAction(cmd); // <- intent.getAction에서 취하는 명령어
-        PendingIntent pendingIntent = PendingIntent.getService(getBaseContext(), 1, pauseIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getService(getBaseContext(), 1, pauseIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        // PendingIntent 생성시 마지막에 들어가는 Flag 값
+        /* 출처 : http://aroundck.tistory.com/2134
+        FLAG_CANCEL_CURRENT : 이전에 생성한 PendingIntent 는 취소하고 새롭게 만든다.
+        FLAG_NO_CREATE : 이미 생성된 PendingIntent 가 없다면 null 을 return 한다. 생성된 녀석이 있다면 그 PendingIntent 를 반환한다. 즉 재사용 전용이다.
+        FLAG_ONE_SHOT : 이 flag 로 생성한 PendingIntent 는 일회용이다.
+        FLAG_UPDATE_CURRENT : 이미 생성된 PendingIntent 가 존재하면 해당 Intent 의 Extra Data 만 변경한다.
+        */
 
         // 노티피케이션에 들어가는 버튼을 만드는 명령
         int iconId = android.R.drawable.ic_media_pause;
